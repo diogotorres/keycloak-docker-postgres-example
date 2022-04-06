@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "e4de8a49-d3e8-44ec-bf7b-07b448dc0786",
+		"name": "keycloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Master admin auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "admin-cli",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123321",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/realms/master/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"realms",
+						"master",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Master admin service account auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "admin-cli",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "0pCtF2h3rEnGpPaNOMxmljcsskNQ1Lxa",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/realms/master/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"realms",
+						"master",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				},
+				"description": "Para obter o client_secret:\n\n*   Acessar o realm Master\n*   Acessar o client admin-cli\n*   Mudar o Access Type para 'confidential'\n*   Salvar\n*   Na aba credentials, o client_secret vai estar aparecendo agora"
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJudklqbTI1aWcwdjBISnJ5TVdaRDRRZXF2d3hJWUtHSDBNTXc5LWRIYkd3In0.eyJleHAiOjE2NDkyNDc2NzYsImlhdCI6MTY0OTI0NzYxNiwianRpIjoiMTM0YzU0Y2QtNGQxYi00MWQzLTk4MTQtNzgwNzhiZGU4ODdmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImNjOTkyOWNhLWRhMjItNGM1Ni04NTY4LWM3NGI4OGJlZTg0MSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsImFjciI6IjEiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJjbGllbnRJZCI6ImFkbWluLWNsaSIsImNsaWVudEhvc3QiOiIxNzIuMjMuMC4xIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtYWRtaW4tY2xpIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4yMy4wLjEifQ.gi16GmoHOubKQCwU_ZmRAvcfd_vnrzrqY4U3K6IJak4tPXJkndaJ6ObVtz1QBj0reXUDhT1qQO76vVeYykaSOM6JRdR4JfSw4R0l1qxlT6MWtM78g1al7RupzSNPpyNLoBacmkidlDeui8h9rCGnH8PVyyPo-bZGMS_MSyZsdSjjIws5HJ-6dIGvSVfA5jxF07kMoyUDnaCRfn-spDIQA5gPkWAIp43g8dpMCQ1Wmwc2QpKmCg7lJC5Nv8QrvS7FxCQv0JsJKllQQc8SLbfSflMXWGaVPaEI_xfEuqybtvmOoXdZRNj9UAwwC8ZRfX4seqEgBRCfVzmwkADnxzdlmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Teste\",\r\n    \"lastName\": \"Silva\",\r\n    \"email\": \"teste@email.com\",\r\n    \"enabled\": true,\r\n    \"username\": \"example-user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/admin/realms/example/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"admin",
+						"realms",
+						"example",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJudklqbTI1aWcwdjBISnJ5TVdaRDRRZXF2d3hJWUtHSDBNTXc5LWRIYkd3In0.eyJleHAiOjE2NDkyNDc3NTgsImlhdCI6MTY0OTI0NzY5OCwianRpIjoiOTAwZDdiYTMtZGIzYi00YzViLThlYWQtMDk4YzIxZGJlMzJiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImNjOTkyOWNhLWRhMjItNGM1Ni04NTY4LWM3NGI4OGJlZTg0MSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsImFjciI6IjEiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJjbGllbnRJZCI6ImFkbWluLWNsaSIsImNsaWVudEhvc3QiOiIxNzIuMjMuMC4xIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtYWRtaW4tY2xpIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4yMy4wLjEifQ.jM1WpsQ65_GyjIWgi2jHPFHw0_0K3xsf25sC5xTcHTRqW_yzPvar34tRcAJQ4CtRQK8XUlz-Qk1WmB9qxOkuPy8PlSnMCymSOHx8x--y5RgNOiupQmwPQE3UbwRApjBETmy3CHfptbOGtWqj_bNwioGDh_4k3IEni34_k-asulN8mAM-ctYcndwULkE8xjop9znP7Le1RpjWzSZewAODghyS2qA4jXdnEfCOGqUmR9tpWLHFXtn-QSSIW29MBsogfx0_gvG0VbUkCLa_9Lur00CWI1Z1hDoeT4ytvzDgAwtlW_z752uIu4REEI-aRIVlqpic4pmbqJXRspvwKf97TQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth/admin/realms/example/users/6f207ea1-523d-49bd-bf71-26a2e144a6b1/role-mappings/realm",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"admin",
+						"realms",
+						"example",
+						"users",
+						"6f207ea1-523d-49bd-bf71-26a2e144a6b1",
+						"role-mappings",
+						"realm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJudklqbTI1aWcwdjBISnJ5TVdaRDRRZXF2d3hJWUtHSDBNTXc5LWRIYkd3In0.eyJleHAiOjE2NDkyNDc2NzYsImlhdCI6MTY0OTI0NzYxNiwianRpIjoiMTM0YzU0Y2QtNGQxYi00MWQzLTk4MTQtNzgwNzhiZGU4ODdmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImNjOTkyOWNhLWRhMjItNGM1Ni04NTY4LWM3NGI4OGJlZTg0MSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsImFjciI6IjEiLCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJjbGllbnRJZCI6ImFkbWluLWNsaSIsImNsaWVudEhvc3QiOiIxNzIuMjMuMC4xIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtYWRtaW4tY2xpIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4yMy4wLjEifQ.gi16GmoHOubKQCwU_ZmRAvcfd_vnrzrqY4U3K6IJak4tPXJkndaJ6ObVtz1QBj0reXUDhT1qQO76vVeYykaSOM6JRdR4JfSw4R0l1qxlT6MWtM78g1al7RupzSNPpyNLoBacmkidlDeui8h9rCGnH8PVyyPo-bZGMS_MSyZsdSjjIws5HJ-6dIGvSVfA5jxF07kMoyUDnaCRfn-spDIQA5gPkWAIp43g8dpMCQ1Wmwc2QpKmCg7lJC5Nv8QrvS7FxCQv0JsJKllQQc8SLbfSflMXWGaVPaEI_xfEuqybtvmOoXdZRNj9UAwwC8ZRfX4seqEgBRCfVzmwkADnxzdlmg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth/admin/realms/example/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"admin",
+						"realms",
+						"example",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
