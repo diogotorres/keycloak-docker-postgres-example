@@ -11,8 +11,11 @@ services:
       - DB_PASSWORD=keycloak_pwd
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=123321
+      - KEYCLOAK_IMPORT=/tmp/example-realm.json
     links:
       - "db:database"
+    volumes:
+      - "./example-realm.json:/tmp/example-realm.json"
   
   db:
     image: postgres:latest
